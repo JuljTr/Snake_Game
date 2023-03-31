@@ -29,15 +29,18 @@ const initGame = () => {
     let htmlMarkup =
         `<div class="food" style="grid-area:${foodY}/${foodX}"> </div>`;
     
+    if(snakeX === foodX && snakeY === foodY) {
+        changeFoodPosition()
+    }
+    
     snakeX += velocityX;
     snakeY += velocityY;
-    
+
     htmlMarkup +=
         `<div class="head" style="grid-area:${snakeY}/${snakeX}"> </div>`;
     playBoard.innerHTML = htmlMarkup;
 }
 
 changeFoodPosition()
-initGame()
-
+setInterval(initGame, 125)
 document.addEventListener("keydown", changeDirection);
