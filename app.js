@@ -1,4 +1,5 @@
 let playBoard = document.querySelector(".play-board");
+let gameOver = false;
 let foodX, foodY;
 let snakeBody = [];
 let snakeX = 5, snakeY = 10;
@@ -36,8 +37,20 @@ const initGame = () => {
         snakeBody.push([foodX, foodY]); //pushing food position to body array
     }
 
+    for (let i = snakeBody.length -1; i > 0; i--) {
+        snakeBody[i] = snakeBody[i - 1];
+    }
+
+    snakeBody[0] = [snakeX, snakeY];
+
     snakeX += velocityX;
     snakeY += velocityY;
+
+    if(snakeX <= 0 || snakeX > 30 || snakeY <= 0 || snakeY > 30) {
+        console.log("Game Over")
+        gameOver = true;
+    }
+
     for (let i = 0; i < snakeBody.length; i++) {
         //adding a div for each part 
         htmlMarkup +=
@@ -49,3 +62,7 @@ const initGame = () => {
 changeFoodPosition()
 setInterval(initGame, 125)
 document.addEventListener("keydown", changeDirection);
+
+
+
+
